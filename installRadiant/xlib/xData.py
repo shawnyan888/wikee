@@ -21,13 +21,14 @@ LSCC_PATH = lscc_path_win if ON_WIN else lscc_path_lin
 
 # install file package logo dictionary
 PACKAGE_LOGOS = collections.OrderedDict([
+    ("base", [re.compile("Radiant_x64")]),
     ("epic", [re.compile("Ctrl_Pack_EPIC")]),
     ("jedi", [re.compile("Ctrl_Pack_JEDI")]),
     ("power", [re.compile("PowerEstimator")]),
     ("program_security", [re.compile("Radiant_Programmer_Security")]),
-    ("program", re.compile("Radiant_Programmer")),
-    ("reveal", re.compile("Radiant_Reveal")),
-    ("security", re.compile("Radiant_Security")),
-    ("base", re.compile("Radiant_x64")),
+    ("program", [re.compile("Radiant_Programmer")]),
+    ("reveal", [re.compile("Radiant_Reveal")]),
+    ("security", [re.compile("Radiant_Security")]),
 ])
 
+EMAIL = "shawn.yan@latticesemi.com"

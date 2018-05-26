@@ -1,4 +1,4 @@
-#!/usr/bin/python  
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
 import os
 import re
@@ -19,14 +19,14 @@ def _map_logo(abs_file):
     yose.say_it("Warning. Unknown install file: %s" % abs_file)
 
 
-def get_logo_file_dict(top_dir):
+def get_logo_file_dict(radiant_icd_path):
     """ find each file's logo name and return a dict
     """
     try:
-        fds = os.listdir(top_dir)
+        fds = os.listdir(radiant_icd_path)
     except OSError:
         fds = list()
-    abs_fds = [os.path.join(top_dir, item) for item in fds]
+    abs_fds = [os.path.join(radiant_icd_path, item) for item in fds]
     return dict(zip(map(_map_logo, abs_fds), map(yose.win2unix, abs_fds)))
 
 
