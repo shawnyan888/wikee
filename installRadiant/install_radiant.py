@@ -4,6 +4,7 @@ import os
 import time
 from xlib import xOptions
 from xlib import xTools
+from xlib import xInstallOneRadiant
 from groot import yose
 
 __author__ = 'Shawn Yan'
@@ -25,21 +26,25 @@ class InstallRadiant(xOptions.Options):
             sts = self._install_radiant(self.radiant)
         if self.standalone:
             while True:
-                self.flow_remove_radiant()
-                self.flow_install_radiant()
+                try:
+                    self.flow_remove_radiant()
+                    self.flow_install_radiant()
+                except:
+                    yose.say_tb()
                 time.sleep(self.gap_time)
         return sts
 
     def write_first_history(self):
-        green_builds = xTools.get_green_builds(self.rel)
-        return yose.write_file(self.history_file, ["{},{}".format(item, time.ctime()) for item in green_builds], append=False)
+        gbs = xTools.get_green_builds(self.rel)
+        return yose.write_file(self.history_file, ["{},{},Initial".format(item, time.ctime()) for item in gbs])
 
     def _install_radiant(self, radiant):
-        yose.say_it("Will install Radiant {} <{}>".format(radiant, time.ctime()))
-        _recov = yose.ChangeDir(self.lscc)
-        radiant_path = "%s/%s" % (self.lscc, radiant)
-
-        _recov.comeback()
+        my_install = xInstallOneRadiant.InstallOneRadiant(self.rel, self.lscc, radiant, self.packages)
+        my_install.process()
+        msg = my_install.get_msg()
+        msg_str = msg if msg else "OK"
+        yose.write_file(self.history_file, "{},{},{}".format(radiant, time.ctime(), msg_str), append=True)
+        return msg
 
     def flow_remove_radiant(self):
         pass

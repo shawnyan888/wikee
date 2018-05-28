@@ -30,5 +30,21 @@ PACKAGE_LOGOS = collections.OrderedDict([
     ("reveal", [re.compile("Radiant_Reveal")]),
     ("security", [re.compile("Radiant_Security")]),
 ])
+DEFAULT_PACKS = ["base", "jedi", "epic"]
 
 EMAIL = "shawn.yan@latticesemi.com"
+
+success_win = """[root]
+path = {0}
+[check]
+path00 = {0}/ispfpga/bin/nt64/map.exe
+path01 = {0}/bin/nt64/pnmain.exe
+"""
+success_lin = """[root]
+path = {0}
+[check]
+path00 = {0}/ispfpga/bin/lin/map
+path01 = {0}/bin/lin/pnmain
+"""
+SUCCESS_INI = success_win if ON_WIN else success_lin
+
